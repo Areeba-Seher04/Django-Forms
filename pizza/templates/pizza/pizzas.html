@@ -1,0 +1,33 @@
+{% extends 'pizza/base.html' %}
+
+{% block 'body' %}
+<<script type = "text/javascript">
+	function validateForm() {
+  var x = document.forms["myForm"]["form-0-topping1"].value;
+  if (x == "") {
+    alert("Name must be filled out");
+    return false;
+  }
+}
+	</script>
+
+<div class="container">
+
+<h1>Order Pizzas </h1>
+<h2>{{note}}</h2>
+
+
+<form name="myForm" action="{% url 'pizzas' %}" onsubmit="return validateForm()" method='post'>
+	{% csrf_token %}
+	{{formset.management_form}}
+	{% for form in formset %}
+	
+		{{form}}
+	
+		<br><br>
+	{% endfor %}
+	<input type="submit" value="Order Pizza">
+</form>
+
+</div>
+ {% endblock %}
